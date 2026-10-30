@@ -269,7 +269,7 @@ export default function DeskKitPage() {
           <Link href="/" className="inline-flex items-center gap-2 text-[10px] text-[#64746b] no-underline hover:text-[#203d39]" data-testid="link-back-to-brief-studio">
             <ArrowLeft size={13} /> Back to brief studio
           </Link>
-          <div className="eyebrow mt-6">Parametric kit / 01</div>
+          <div className="eyebrow mt-6">Desk Kit mode / 01</div>
           <h1 className="display mt-2 text-[clamp(38px,5vw,60px)] leading-[.94] text-[#203d39]" data-testid="text-desk-kit-title">Fit the cable<br className="hidden sm:block" /> run to your desk.</h1>
           <p className="mt-3 max-w-[600px] text-[12px] leading-6 text-[#63716a]" data-testid="text-desk-kit-intro">
             A custom-fit under-desk organizer, defined by real measurements. Change a dimension and the local geometry and fit checks respond immediately.

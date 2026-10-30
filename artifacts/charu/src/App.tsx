@@ -69,7 +69,7 @@ function AppShell({ children }: { children: ReactNode }) {
     <aside className="charu-rail">
       <Link href="/" className="flex shrink-0 items-center gap-3 text-current no-underline" data-testid="link-charu-home">
         <div className="relative grid h-10 w-10 place-items-center border border-[#759187] text-[#eff0df]"><span className="display text-[24px] leading-none">c</span><i className="absolute -right-1 -top-1 h-2 w-2 bg-[#e8875a]" /></div>
-         <div className="brand-copy"><div className="display text-[21px] leading-none tracking-[-.04em]">charu</div><div className="mono mt-1 text-[8px] uppercase tracking-[.2em] text-[#a8bcb0]">Parametric kit studio</div></div>
+         <div className="brand-copy"><div className="display text-[21px] leading-none tracking-[-.04em]">Charu</div><div className="mono mt-1 text-[8px] uppercase tracking-[.2em] text-[#a8bcb0]">The Assembly Planner</div></div>
       </Link>
       <div className="eyebrow mt-10 !text-[#9bb1a5]">Workbench</div>
       <nav className="rail-nav mt-3 flex flex-col gap-1" aria-label="Main navigation">
@@ -83,7 +83,7 @@ function AppShell({ children }: { children: ReactNode }) {
       <div className="rail-lock mt-5 flex items-center gap-2 text-[9px] tracking-[.1em] text-[#86a196]"><LockKeyhole size={12} /> MEASUREMENTS STAY EXPLICIT</div>
     </aside>
     <main className="charu-main">
-      <header className="charu-topbar"><div className="eyebrow">From physical dimensions to editable geometry</div><div className="mono hidden text-[9px] text-[#728078] sm:block">NEBIUS BRIEF · LOCAL PARAMETRIC KITS</div></header>
+      <header className="charu-topbar"><div className="eyebrow">From physical dimensions to editable geometry</div><div className="mono hidden text-[9px] text-[#728078] sm:block">BRIEF STUDIO · DESK KIT MODE</div></header>
       {storageError && <div className="mt-4 flex items-start gap-3 border border-[#dfb98d] bg-[#fff3df] px-4 py-3 text-[11px] leading-5 text-[#765438]" role="alert" data-testid="warning-local-storage"><CircleAlert size={15} className="mt-0.5 shrink-0" /><span className="flex-1">{storageError}</span><button className="quiet-btn !border-[#d6b793] !px-2 !py-1 text-[9px]" onClick={dismissStorageError} aria-label="Dismiss browser storage warning" data-testid="button-dismiss-storage-warning">Dismiss</button></div>}
       {!isLoading && !isError && planner && !planner.configured && <div className="mt-5 flex gap-3 border border-[#d9b794] bg-[#fff3df] px-4 py-3 text-[12px] text-[#694f39]" role="status" data-testid="status-provider-unconfigured"><ShieldAlert size={17} className="mt-0.5 shrink-0" /><span><b>Planner not configured.</b> New proposals are unavailable. Existing server plans remain inspectable.</span></div>}
       {children}

@@ -1,7 +1,7 @@
 kind = "web"
 previewPath = "/"
 title = "Charu — The Assembly Planner"
-description = "A Nebius-powered assembly studio that turns a maker's intent into a connected, constraint-checked procedural proposal with an interactive spatial view, visible validation, one bounded repair, and a SHA-256 evidence export."
+description = "Charu — The Assembly Planner combines its Nebius-powered Brief Studio for constrained assembly proposals with Desk Kit mode for deterministic custom-fit 3D organizers, local scene editing, dimensional fit checks, and printer-aware prototype exports."
 version = "1.0.0"
 id = "artifacts/charu"
 router = "path"
