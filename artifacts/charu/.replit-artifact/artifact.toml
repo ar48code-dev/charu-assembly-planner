@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Charu — The Assembly Planner"
+description = "A Nebius-powered assembly studio that turns a maker's intent into a connected, constraint-checked procedural proposal with an interactive spatial view, visible validation, one bounded repair, and a SHA-256 evidence export."
+version = "1.0.0"
+id = "artifacts/charu"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22046
+
+[services.development]
+run = "pnpm --filter @workspace/charu run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/charu", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/charu/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22046"
+BASE_PATH = "/"
