@@ -1,6 +1,5 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
   description: API specification
@@ -16,7 +15,8 @@ paths:
   /healthz:
     get:
       operationId: healthCheck
-      tags: [health]
+      tags:
+        - health
       summary: Health check
       description: Returns server health status
       responses:
@@ -29,7 +29,8 @@ paths:
   /assembly-planner/status:
     get:
       operationId: getAssemblyPlannerStatus
-      tags: [assembly-planner]
+      tags:
+        - assembly-planner
       summary: Get planner provider status
       responses:
         "200":
@@ -41,7 +42,8 @@ paths:
   /assembly-planner/summary:
     get:
       operationId: getAssemblyPlannerSummary
-      tags: [assembly-planner]
+      tags:
+        - assembly-planner
       summary: Get planner activity summary
       responses:
         "200":
@@ -53,7 +55,8 @@ paths:
   /assembly-plans:
     get:
       operationId: listAssemblyPlans
-      tags: [assembly-planner]
+      tags:
+        - assembly-planner
       summary: List saved assembly plans
       responses:
         "200":
@@ -66,7 +69,8 @@ paths:
                   $ref: "#/components/schemas/AssemblyPlan"
     post:
       operationId: createAssemblyPlan
-      tags: [assembly-planner]
+      tags:
+        - assembly-planner
       summary: Generate and validate an assembly plan
       requestBody:
         required: true
@@ -88,7 +92,8 @@ paths:
   /assembly-plans/{id}:
     get:
       operationId: getAssemblyPlan
-      tags: [assembly-planner]
+      tags:
+        - assembly-planner
       summary: Get an assembly plan
       parameters:
         - name: id
@@ -109,7 +114,8 @@ paths:
   /assembly-plans/{id}/accept:
     post:
       operationId: acceptAssemblyPlan
-      tags: [assembly-planner]
+      tags:
+        - assembly-planner
       summary: Explicitly accept a valid plan
       parameters:
         - name: id
@@ -140,136 +146,260 @@ components:
         - status
     PlannerStatus:
       type: object
-      required: [configured, provider, model]
+      required:
+        - configured
+        - provider
+        - model
       properties:
-        configured: { type: boolean }
-        provider: { type: string }
-        model: { type: string }
+        configured:
+          type: boolean
+        provider:
+          type: string
+        model:
+          type: string
     PlannerSummary:
       type: object
-      required: [totalPlans, validPlans, acceptedPlans, recentPlans]
+      required:
+        - totalPlans
+        - validPlans
+        - acceptedPlans
+        - recentPlans
       properties:
-        totalPlans: { type: integer }
-        validPlans: { type: integer }
-        acceptedPlans: { type: integer }
+        totalPlans:
+          type: integer
+        validPlans:
+          type: integer
+        acceptedPlans:
+          type: integer
         recentPlans:
           type: array
           items:
             $ref: "#/components/schemas/AssemblyPlan"
     AssemblyPlanInput:
       type: object
-      required: [prompt, useCase, requiredParts, requiredConnections, maxParts, geometryBudget]
+      required:
+        - prompt
+        - useCase
+        - requiredParts
+        - requiredConnections
+        - maxParts
+        - geometryBudget
       properties:
-        prompt: { type: string, minLength: 15, maxLength: 2000 }
+        prompt:
+          type: string
+          minLength: 15
+          maxLength: 2000
         useCase:
           type: string
-          enum: [display, simulation, game]
+          enum:
+            - display
+            - simulation
+            - game
         requiredParts:
           type: array
           minItems: 1
           maxItems: 5
-          items: { type: string, minLength: 1, maxLength: 80 }
+          items:
+            type: string
+            minLength: 1
+            maxLength: 80
         requiredConnections:
           type: array
           maxItems: 7
           items:
             $ref: "#/components/schemas/LockedConnection"
-        maxParts: { type: integer, minimum: 2, maximum: 8 }
-        geometryBudget: { type: integer, minimum: 100, maximum: 80000 }
+        maxParts:
+          type: integer
+          minimum: 2
+          maximum: 8
+        geometryBudget:
+          type: integer
+          minimum: 100
+          maximum: 80000
     LockedConnection:
       type: object
-      required: [fromPart, toPart]
+      required:
+        - fromPart
+        - toPart
       properties:
-        fromPart: { type: string, minLength: 1, maxLength: 80 }
-        toPart: { type: string, minLength: 1, maxLength: 80 }
+        fromPart:
+          type: string
+          minLength: 1
+          maxLength: 80
+        toPart:
+          type: string
+          minLength: 1
+          maxLength: 80
     AssemblyPart:
       type: object
-      required: [id, name, shape, dimensions, color]
+      required:
+        - id
+        - name
+        - shape
+        - dimensions
+        - color
       properties:
-        id: { type: string }
-        name: { type: string }
+        id:
+          type: string
+        name:
+          type: string
         shape:
           type: string
-          enum: [box, cylinder]
+          enum:
+            - box
+            - cylinder
         dimensions:
           type: object
-          required: [x, y, z]
+          required:
+            - x
+            - y
+            - z
           properties:
-            x: { type: number }
-            y: { type: number }
-            z: { type: number }
-        color: { type: string }
+            x:
+              type: number
+            y:
+              type: number
+            z:
+              type: number
+        color:
+          type: string
     AssemblyConnection:
       type: object
-      required: [fromPart, toPart, kind]
+      required:
+        - fromPart
+        - toPart
+        - kind
       properties:
-        fromPart: { type: string }
-        toPart: { type: string }
+        fromPart:
+          type: string
+        toPart:
+          type: string
         kind:
           type: string
-          enum: [rigid, hinge, slide]
+          enum:
+            - rigid
+            - hinge
+            - slide
     AssemblyValidation:
       type: object
-      required: [valid, checks, warnings]
+      required:
+        - valid
+        - checks
+        - warnings
       properties:
-        valid: { type: boolean }
+        valid:
+          type: boolean
         checks:
           type: array
           items:
             type: object
-            required: [name, passed, detail]
+            required:
+              - name
+              - passed
+              - detail
             properties:
-              name: { type: string }
-              passed: { type: boolean }
-              detail: { type: string }
+              name:
+                type: string
+              passed:
+                type: boolean
+              detail:
+                type: string
         warnings:
           type: array
-          items: { type: string }
+          items:
+            type: string
     AssemblyCandidate:
       type: object
-      required: [title, summary, parts, connections, steps, designNotes]
+      required:
+        - title
+        - summary
+        - parts
+        - connections
+        - steps
+        - designNotes
       properties:
-        title: { type: string }
-        summary: { type: string }
+        title:
+          type: string
+        summary:
+          type: string
         parts:
           type: array
-          items: { $ref: "#/components/schemas/AssemblyPart" }
+          items:
+            $ref: "#/components/schemas/AssemblyPart"
         connections:
           type: array
-          items: { $ref: "#/components/schemas/AssemblyConnection" }
+          items:
+            $ref: "#/components/schemas/AssemblyConnection"
         steps:
           type: array
-          items: { type: string }
+          items:
+            type: string
         designNotes:
           type: array
-          items: { type: string }
+          items:
+            type: string
     AssemblyPlan:
       type: object
-      required: [id, prompt, useCase, status, requiredParts, requiredConnections, maxParts, geometryBudget, candidate, validation, repairAttempts, model, createdAt, acceptedAt]
+      required:
+        - id
+        - prompt
+        - useCase
+        - status
+        - requiredParts
+        - requiredConnections
+        - maxParts
+        - geometryBudget
+        - candidate
+        - validation
+        - repairAttempts
+        - model
+        - createdAt
+        - acceptedAt
       properties:
-        id: { type: string, format: uuid }
-        prompt: { type: string }
+        id:
+          type: string
+          format: uuid
+        prompt:
+          type: string
         useCase:
           type: string
-          enum: [display, simulation, game]
+          enum:
+            - display
+            - simulation
+            - game
         status:
           type: string
-          enum: [valid, invalid, accepted]
+          enum:
+            - valid
+            - invalid
+            - accepted
         requiredParts:
           type: array
-          items: { type: string }
+          items:
+            type: string
         requiredConnections:
           type: array
-          items: { $ref: "#/components/schemas/LockedConnection" }
-        maxParts: { type: integer }
-        geometryBudget: { type: integer }
+          items:
+            $ref: "#/components/schemas/LockedConnection"
+        maxParts:
+          type: integer
+        geometryBudget:
+          type: integer
         candidate:
           anyOf:
             - $ref: "#/components/schemas/AssemblyCandidate"
             - type: "null"
-        validation: { $ref: "#/components/schemas/AssemblyValidation" }
-        repairAttempts: { type: integer }
-        model: { type: string }
-        createdAt: { type: string, format: date-time }
-        acceptedAt: { type: ["string", "null"], format: date-time }
-
+        validation:
+          $ref: "#/components/schemas/AssemblyValidation"
+        repairAttempts:
+          type: integer
+        model:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        acceptedAt:
+          type:
+            - string
+            - "null"
+          format: date-time

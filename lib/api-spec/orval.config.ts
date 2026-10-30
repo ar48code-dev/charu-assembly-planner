@@ -30,6 +30,11 @@ export default defineConfig({
       clean: true,
       prettier: true,
       override: {
+        query: {
+          // The dependency is declared via the workspace catalog, not in
+          // api-spec/package.json, so Orval cannot infer v5 from that package.
+          version: 5,
+        },
         fetch: {
           includeHttpResponseReturnType: false,
         },
